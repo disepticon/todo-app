@@ -53,4 +53,9 @@ dependencies {
     // HILT
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    // LIFECYCLE & COROUTINES
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.coroutines.android)
 }
