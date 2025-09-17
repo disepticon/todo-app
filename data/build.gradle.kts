@@ -1,22 +1,18 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt)
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.septiadi.todoapp"
+    namespace = "com.septiadi.data"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.septiadi.todoapp"
         minSdk = 27
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -39,31 +35,21 @@ android {
 
 dependencies {
 
-    // CORE
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // HILT
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-
-    // LIFECYCLE & COROUTINES
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.coroutines.android)
 
-    // NAVIGATION
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    // ROOM
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
 
-    //MODULE DEPENDENCIES
-    implementation(project(":data"))
-    implementation(project(":domain"))
+    // KAPT
+    kapt(libs.room.compiler)
+
+    // EXPOSE domain MODULE DEPENDENCY if needed
+    api(project(":domain"))
 }
